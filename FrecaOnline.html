@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Instant creative magic via WhatsApp. Photo enhancement, custom songs, heartfelt messages, logos & more. Results in minutes.">
+    <title>FRECA Online Studio • Creative Magic on WhatsApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500&display=swap');
+        
+        :root {
+            --wa-number: "256758991506";
+        }
+        
+        * { 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        
+        .main-font { 
+            font-family: 'Inter', system_ui, sans-serif; 
+        }
+        
+        .heading-font { 
+            font-family: 'Space Grotesk', sans-serif; 
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at 30% 20%, #4f46e5 0%, #0a0a0a 40%);
+        }
+        
+        .before-after {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .before-after::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 12px; 
+            left: 12px;
+            background: rgba(0,0,0,0.25);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 9999px;
+            z-index: 10;
+        }
+
+        .service-card, .price-card, .message-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .service-card:hover, .price-card:hover, .message-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4),
+                        0 0 35px -5px rgb(129 140 248 / 0.6); /* Bluish glow */
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 15px rgb(167 139 250); }
+            to { text-shadow: 0 0 30px rgb(129 140 248); }
+        }
+
+        .whatsapp-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Brand gradient - light cyan to magenta */
+        .brand-gradient {
+            background: linear-gradient(to right, #67e8f9, #c026d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-gradien {
+            background: linear-gradient(to right, #FFEA00, #41FDFC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Image styling */
+        .service-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .service-img {
+                height: 260px;
+            }
+        }
+
+        /* Manual slider - one image at a time on mobile */
+        .image-slider {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 12px;
+            scrollbar-width: thin;
+        }
+        
+        .image-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .image-slider::-webkit-scrollbar-thumb {
+            background: #64748b;
+            border-radius: 9999px;
+        }
+
+        .slider-item {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            min-width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .slider-item {
+                flex: 0 0 48%;
+                min-width: 48%;
+            }
+        }
+
+        /* Extra polish: Hero accent glow */
+        .hero-accent {
+            text-shadow: 0 0 25px rgb(129 140 248 / 0.7);
+        }
+    </style>
+</head>
+<body class="main-font bg-[#0a0a0a] text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl glow">✨</div>
+                <h1 class="heading-font text-3xl tracking-[-1px]">FRECA<span class="brand-gradient">Online Studio</span></h1>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <div class="flex items-center gap-x-1 text-emerald-400">
+                    <i class="fa-solid fa-check-circle"></i> Instant delivery
+                </div>
+                <div class="flex items-center gap-x-1 text-emerald-400">
+                    <i class="fa-solid fa-check-circle"></i> 500+ happy customers
+                </div>
+                <div class="flex items-center gap-x-1 text-emerald-400">
+                    <i class="fa-solid fa-check-circle"></i> 100% creative-powered
+                </div>
+            </div>
+            
+            <a href="#contact" 
+               class="flex items-center gap-x-2 bg-[#25D366] hover:bg-[#20c35c] text-black font-semibold px-6 py-3 rounded-3xl">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <span class="hidden sm:inline">Chat on WhatsApp</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-bg min-h-screen flex items-center pt-16 pb-20">
+        <div class="max-w-screen-2xl mx-auto px-6 grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 space-y-8">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 px-5 py-2 rounded-3xl border border-white/20">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    QUICK RESPONSES • AVAILABLE ONLINE DAILY ON WHATSAPP
+                </div>
+                <h1 class="heading-font text-6xl md:text-7xl leading-[1.05] tracking-[-2px]">
+                    Your ideas.<br>Creative magic.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-300 to-indigo-300 hero-accent">Delivered in minutes.</span>
+                </h1>
+                <p class="text-xl text-white/70">Photo glow-ups • Heartfelt messages • Custom songs • Logos & more</p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <!-- FIXED: This button now correctly links to #contact -->
+                    <a id="hero-whatsapp" href="#contact" 
+                       class="bg-white text-black hover:bg-amber-300 font-semibold text-2xl px-10 py-6 rounded-3xl flex items-center gap-x-3 shadow-2xl shadow-violet-500/30">
+                        Order on WhatsApp 
+                        <i class="fa-brands fa-whatsapp text-3xl"></i>
+                    </a>
+                    <button onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })" 
+                            class="border border-white/30 hover:border-white font-medium text-lg px-8 py-6 rounded-3xl cursor-pointer hover:bg-white/5">
+                        Explore Services →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Visual -->
+            <div class="md:col-span-5 hidden md:block">
+                <div class="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-3xl p-6">
+                    <div class="before-after mb-6" data-label="BEFORE">
+                        <img src="https://picsum.photos/id/1005/600/400" alt="Before" class="service-img grayscale">
+                    </div>
+                    <div class="text-center my-4 text-emerald-400 text-xl">↓ Creative Magic ↓</div>
+                    <div class="before-after" data-label="AFTER">
+                        <img src="M2.jpg" alt="After" class="service-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-20 bg-white/5">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="px-4 py-1 bg-violet-200 text-violet-700 text-sm font-medium rounded-3xl">OUR CREATIVE SERVICES</span>
+                <h2 class="heading-font text-5xl tracking-[-1px] mt-4">From photos to feelings — we create it all.</h2>
+            </div>
+
+            <!-- PHOTO SERVICES -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">📸</span> Photo Services
+                </h3>
+                
+                <p class="text-white/70 text-lg mb-10 max-w-3xl">
+                    Below are samples of some of the photo services provided by this studio
+                </p>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+
+                    <!-- 1. Old unclear monochrome to clear colored -->
+                    <div class="service-card bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8">
+                        <h4 class="text-2xl font-semibold mb-6">Old Unclear Monochrome to Clear Colored</h4>
+                        <div class="image-slider">
+                            <div class="before-after slider-item" data-label="BEFORE">
+                                <img src="M1.jpg"  alt="Before" class="service-img grayscale">
+                            </div>
+                            <div class="before-after slider-item" data-label="AFTER">
+                                <img src="M2.jpg" alt="After" class="service-img">
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                            Order This Service
+                        </a>
+                    </div>
+
+                    <!-- 2. A picture from a video -->
+                    <div class="service-card bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8">
+                        <h4 class="text-2xl font-semibold mb-6">A Clear clean Picture from a Video</h4>
+                        <div class="image-slider">
+                            <div class="before-after slider-item" data-label="BEFORE">
+                                <img src="V1.png" alt="Before" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="AFTER">
+                                <img src="V2.jpg" alt="After" class="service-img">
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                            Order This Service
+                        </a>
+                    </div>
+
+                    <!-- 3. Poor quality to high quality - REMOVED grayscale effect -->
+                    <div class="service-card bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8 lg:col-span-2">
+                        <h4 class="text-2xl font-semibold mb-6">Poor Quality to High Quality</h4>
+                        <div class="image-slider">
+                            <div class="before-after slider-item" data-label="BEFORE 1">
+                                <img src="C1.jpg" alt="Before" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="AFTER 1">
+                                <img src="C2.jpg" alt="After" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="BEFORE 2">
+                                <img src="C3.jpg" alt="Before" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="AFTER 2">
+                                <img src="C4.jpg" alt="After" class="service-img">
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                            Order This Service
+                        </a>
+                    </div>
+
+                    <!-- 4. Item removal -->
+                    <div class="service-card bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8 lg:col-span-2">
+                        <h4 class="text-2xl font-semibold mb-6">Item Removal and Replacement</h4>
+                        <div class="image-slider">
+                            <div class="before-after slider-item" data-label="ORIGINAL">
+                                <img src="O1.jpg" alt="" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="REMOVED 1">
+                                <img src="O2.jpg" alt="" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="REPLACED 1">
+                                <img src="O3.jpg" alt="" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="REPLACED 2">
+                                <img src="O4.jpg" alt="" class="service-img">
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                            Order Item Removal
+                        </a>
+                    </div>
+
+                    <!-- 5. Image quote maker -->
+                    <div class="service-card bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8">
+                        <h4 class="text-2xl font-semibold mb-6">Image Quote Maker</h4>
+                        <div class="image-slider">
+                            <div class="before-after slider-item" data-label="BEFORE 1">
+                                <img src="Q1~2.jpg" alt="Before" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="AFTER 1">
+                                <img src="Q2~2.jpg" alt="After" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="BEFORE 2">
+                                <img src="Q5.jpg" alt="Before" class="service-img">
+                            </div>
+                            <div class="before-after slider-item" data-label="AFTER 2">
+                                <img src="Q7.jpg" alt="After" class="service-img">
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                            Order Quote Image
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Custom Songs -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">🎵</span> Custom Songs
+                </h3>
+                <div class="bg-[#111] border border-white/10 rounded-3xl p-10 text-center max-w-2xl mx-auto service-card">
+                    <div class="text-6xl mb-6">🎤</div>
+                    <h4 class="text-3xl font-semibold">Personalized Songs Which include Love, Religious, Birthday songs and more</h4>
+                    <p class="text-white/70 mt-4">We create custom songs with your names, story, and emotions. Delivered as audio.</p>
+                    
+                    <!-- Sample Audio Player (Placeholder) -->
+                    <div class="my-8 bg-black/50 rounded-2xl p-6">
+                        <p class="text-sm text-white/60 mb-3">Sample Custom Song Preview</p>
+                        <audio controls class="w-full">
+                            <source src="Fr.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    
+                    <a href="#contact" target="_blank" class="mt-6 inline-block bg-white text-black font-semibold px-12 py-5 rounded-3xl text-lg">
+                        Order Custom Song
+                    </a>
+                </div>
+            </div>
+
+            <!-- Emotional Messages -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">💌</span> Emotional Messages(Plain or Enhanced)
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-pink-400 text-3xl mb-4">❤️</div>
+                        <p class="italic text-white/80">"Every moment without you feels like a song missing its melody..."</p>
+                        <p class="text-xs text-white/50 mt-6">- Love / Reconnection Example</p>
+                        <img src="Lv.jpg" alt="Love theme" class="mt-6 w-full rounded-2xl">
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl">Order Love Message</a>
+                    </div>
+                    
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-amber-400 text-3xl mb-4">😔</div>
+                        <p class="italic text-white/80">"I’ve been reflecting a lot, and I realize I hurt you..."</p>
+                        <p class="text-xs text-white/50 mt-6">- Apology Example</p>
+                        <img src="Sad.jpg" alt="Apology theme" class="mt-6 w-full rounded-2xl">
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl">Order Apology</a>
+                    </div>
+                    
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-emerald-400 text-3xl mb-4">🎉</div>
+                        <p class="italic text-white/80">"Happy Birthday, my love! You make every day feel like a celebration..."</p>
+                        <p class="text-xs text-white/50 mt-6">- Birthday Example</p>
+                        <img src="Bd1.jpg" alt="Birthday theme" class="mt-6 w-full rounded-2xl">
+                        <img src="Bd2.jpg" alt="Birthday theme" class="mt-6 w-full rounded-2xl">
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl">Order Birthday Message</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heartfelt Poems - Now Before/After -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">✍️</span> Heartfelt Poems
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-violet-400 text-3xl mb-4">🌹</div>
+                        <p class="text-white/70">Beautiful, custom-written poems for any occasion — love, loss, gratitude, or celebration.</p>
+                        <div class="mt-6 italic text-white/80 text-sm leading-relaxed">
+                            "In the quiet spaces between your laughter and my heartbeat, I found home. 
+                            Even the stars pause to listen when you whisper my name."
+                        </div>
+                        
+                        <!-- Before / After Comparison -->
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <div class="before-after" data-label="BEFORE">
+                                <img src="Pom1.jpg" alt="Poem Example Before" class="service-img">
+                            </div>
+                            <div class="before-after" data-label="AFTER">
+                                <img src="Pom2.jpg" alt="Poem Example After" class="service-img">
+                            </div>
+                        </div>
+                        
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl">Order Heartfelt Poem</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Baby Names + CV/Resume Cards -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">🔮</span> Special Magic Services
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- Baby Names Card -->
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-sky-400 text-3xl mb-4">👶</div>
+                        <h4 class="text-2xl font-semibold mb-3">Baby Names Suggestions</h4>
+                        <p class="text-white/70">Get beautiful, meaningful baby names with meanings and a short personalized prayer. Perfect for expecting parents.</p>
+                        <div class="mt-6 italic text-white/80 text-sm">
+                            Example: "Amani – Peace. May your child bring peace and joy to your home, guided by God's grace every day."
+                        </div>
+                        <img src="Baby.jpg" alt="Baby names example" class="mt-6 w-full rounded-2xl">
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Baby Names (UGX 3,000-8000)</a>
+                    </div>
+
+                    <!-- CV / Resume Writer Card -->
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-emerald-400 text-3xl mb-4">📄</div>
+                        <h4 class="text-2xl font-semibold mb-3">CV / Resume Writer</h4>
+                        <p class="text-white/70">Professional CV and tailored cover letter written with Magic. Stand out to employers with a clean, impressive resume.</p>
+                        <div class="mt-6 italic text-white/80 text-sm">
+                            "We transform your experience into a powerful, well-formatted CV ready for job applications."
+                        </div>
+                        <img src="R1.jpg" alt="CV example" class="mt-6 w-full rounded-2xl">
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order CV / Resume</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Creative & Business Services - Split into 3 cards -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">🎨</span> Creative & Business Services
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- Logo Design -->
+                    <div class="bg-[#111] border border-white/10 rounded-3xl p-8 text-center service-card">
+                        <div class="text-5xl mb-6">🏷️</div>
+                        <h4 class="text-2xl font-semibold">Logo Design</h4>
+                        <div class="mt-6 grid grid-cols-2 gap-3">
+                            <img src="L1.jpg" alt="Logo example 1" class="rounded-2xl">
+                            <img src="L2.jpg" alt="Logo example 2" class="rounded-2xl">
+                        </div>
+                        <div class="mt-4 text-emerald-400 font-medium">UGX 8,000 – 15,000</div>
+                        <a href="#contact" class="mt-8 block bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Logo Design</a>
+                    </div>
+
+                    <!-- Poster Design -->
+                    <div class="bg-[#111] border border-white/10 rounded-3xl p-8 text-center service-card">
+                        <div class="text-5xl mb-6">🖼️</div>
+                        <h4 class="text-2xl font-semibold">Poster Design</h4>
+                        <div class="mt-6 grid grid-cols-2 gap-3">
+                            <img src="P1.jpg" alt="Poster example 1" class="rounded-2xl">
+                            <img src="P2.jpg" alt="Poster example 2" class="rounded-2xl">
+                        </div>
+                        <div class="mt-4 text-emerald-400 font-medium">UGX 7,000 – 12,000</div>
+                        <a href="#contact" class="mt-8 block bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Poster Design</a>
+                    </div>
+
+                    <!-- Flyer Design - BIGGER IMAGES -->
+                    <div class="bg-[#111] border border-white/10 rounded-3xl p-8 text-center service-card">
+                        <div class="text-5xl mb-6">📄</div>
+                        <h4 class="text-2xl font-semibold">Flyer Design</h4>
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <div class="before-after" data-label="BEFORE">
+                                <img src="F4.jpg" alt="Before" class="service-img h-72 md:h-80">
+                            </div>
+                            <div class="before-after" data-label="AFTER">
+                                <img src="FS1.png" alt="After" class="service-img h-72 md:h-80">
+                            </div>
+                        </div>
+                        <div class="mt-4 text-emerald-400 font-medium">UGX 6,000 – 12,000</div>
+                        <a href="#contact" class="mt-8 block bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Flyer Design</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- NEW: Short Ad Videos Card -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">🎥</span> Short Ad Videos
+                </h3>
+                <div class="message-card border border-white/10 rounded-3xl p-8">
+                    <div class="text-rose-400 text-3xl mb-4">📹</div>
+                    <h4 class="text-2xl font-semibold mb-3">Professional Short Ad Videos for Your Business</h4>
+                    <p class="text-white/70">We create eye-catching, high-quality short videos (like the one below) to promote your business, products, or services. Perfect for WhatsApp status, Instagram Reels, TikTok, and Facebook ads.</p>
+                    <div class="mt-6 italic text-white/80 text-sm leading-relaxed">
+                        "Turn your ideas into scroll-stopping videos that get more customers calling you."
+                    </div>
+                    
+                    <!-- Sample Video Placeholder -->
+                    <div class="mt-8 bg-black/70 rounded-2xl overflow-hidden">
+                        <video controls class="w-full rounded-2xl" poster="F2.jpg">
+                            <source src="ad1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                        Order Short Ad Video
+                    </a>
+                </div>
+            </div>
+
+            <!-- NEW: Combo Service Card -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">🔥</span> Combo Magic Packages
+                </h3>
+                <div class="message-card border border-white/10 rounded-3xl p-8">
+                    <div class="text-amber-400 text-3xl mb-4">✨</div>
+                    <h4 class="text-2xl font-semibold mb-3">Custom Combo Services</h4>
+                    <p class="text-white/70">Combine multiple services into one powerful package. For example: A beautiful photo + heartfelt emotional message + custom song all delivered together as a complete gift or promotion.</p>
+                    <div class="mt-6 italic text-white/80 text-sm leading-relaxed">
+                        "One request → Multiple magics combined. Perfect for birthdays, proposals, business promos, or special surprises."
+                    </div>
+                    
+                    <!-- Sample Video Placeholder -->
+                    <div class="mt-8 bg-black/70 rounded-2xl overflow-hidden">
+                        <video controls class="w-full rounded-2xl" poster="Lv.jpg">
+                            <source src="com1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">
+                        Order a Combo Package
+                    </a>
+                </div>
+            </div>
+
+            <!-- Custom Website / Landing Page Card - 3 Tiers -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+                    <span class="text-4xl">🌐</span> Custom Website / Landing Page
+                </h3>
+                
+                <!-- Professional Introduction -->
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <p class="text-xl text-white/80 leading-relaxed">
+                        Want a powerful landing page like this one — or even better — for your own business? 
+                        We create fast, modern, mobile-friendly websites that help you attract more customers and make sales through WhatsApp and online.
+                    </p>
+                    <p class="mt-4 text-white/70">
+                        Choose the package that matches your budget and goals.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- Basic Tier -->
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-emerald-400 text-3xl mb-4">🌟</div>
+                        <h4 class="text-2xl font-semibold mb-3">Basic Landing Page</h4>
+                        <p class="text-white/70 text-sm leading-relaxed">
+                            Mobile responsive • Clean hero section + 3-4 simple sections • WhatsApp button • Fast loading • Perfect for small businesses and starters.
+                        </p>
+                        <div class="mt-6 text-emerald-400 font-medium">UGX 120,000 – 250,000</div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Basic Package</a>
+                    </div>
+
+                    <!-- Standard Tier -->
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-violet-400 text-3xl mb-4">⭐</div>
+                        <h4 class="text-2xl font-semibold mb-3">Standard Landing Page</h4>
+                        <p class="text-white/70 text-sm leading-relaxed">
+                            Everything in Basic + More sections • Smooth animations & hover effects • Before/After images • Contact form • Professional visuals.
+                        </p>
+                        <div class="mt-6 text-emerald-400 font-medium">UGX 250,000 – 950,000</div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Standard Package</a>
+                    </div>
+
+                    <!-- Premium Tier -->
+                    <div class="message-card border border-white/10 rounded-3xl p-8">
+                        <div class="text-amber-400 text-3xl mb-4">💎</div>
+                        <h4 class="text-2xl font-semibold mb-3">Premium Landing Page</h4>
+                        <p class="text-white/70 text-sm leading-relaxed">
+                            Everything in Standard + Advanced animations • Video & audio embeds • Full custom design • SEO ready • Multiple revisions • Priority support.
+                        </p>
+                        <div class="mt-6 text-emerald-400 font-medium">From UGX 950,000 (depending on complexity)</div>
+                        <a href="#contact" class="mt-8 block text-center bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium">Order Premium Package</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="py-20 bg-black">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="px-5 py-2 bg-amber-300 text-black font-semibold rounded-3xl text-sm">PRICING</span>
+                <h2 class="heading-font text-5xl tracking-[-1px] mt-4">Simple & transparent prices</h2>
+                <p class="text-white/60 mt-3">All prices in UGX • Fast delivery via WhatsApp</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-12">
+
+                <!-- Creative Writing Services -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Creative Writing Services</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between"><span>Emotional Messages</span><span class="font-mono text-emerald-400">UGX 3,000 – 8,000</span></div>
+                        <div class="flex justify-between"><span>Heartfelt Poems</span><span class="font-mono text-emerald-400">UGX 3,000 – 8,000</span></div>
+                        <div class="flex justify-between"><span>Baby Name Suggestions + Prayer</span><span class="font-mono text-emerald-400">UGX 3,000 – 8,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Photo Services -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Photo Services</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between"><span>Photo Enhancement</span><span class="font-mono text-emerald-400">UGX 5,000 – 10,000</span></div>
+                        <div class="flex justify-between"><span>Photo Restoration</span><span class="font-mono text-emerald-400">UGX 5,000 – 15,000</span></div>
+                        <div class="flex justify-between"><span>Item Removal / Replacement</span><span class="font-mono text-emerald-400">UGX 5,000 – 10,000</span></div>
+                        <div class="flex justify-between"><span>Image Quote Maker</span><span class="font-mono text-emerald-400">UGX 3,000 – 10,000</span></div>
+                        <div class="flex justify-between"><span>Clear image from video</span><span class="font-mono text-emerald-400">UGX 4,000 – 10,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Audio Services -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Audio Services</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between"><span>Custom Songs</span><span class="font-mono text-emerald-400">UGX 10,000 – 20,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Professional Documents -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Professional Documents</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between"><span>CV / Resume Writing</span><span class="font-mono text-emerald-400">UGX 10,000 – 25,000</span></div>
+                        <div class="flex justify-between"><span>CV + Cover Letter</span><span class="font-mono text-emerald-400">UGX 15,000 – 20,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Creative Design Services -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Creative Design Services</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between"><span>Logo Design</span><span class="font-mono text-emerald-400">UGX 7,000 – 15,000</span></div>
+                        <div class="flex justify-between"><span>Poster Design</span><span class="font-mono text-emerald-400">UGX 10,000 – 20,000</span></div>
+                        <div class="flex justify-between"><span>Flyer Design</span><span class="font-mono text-emerald-400">UGX 10,000 – 20,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Video Services -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Video Services</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between"><span>Short Ad Videos</span><span class="font-mono text-emerald-400">UGX 15,000 – 30,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Combo Packages -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-violet-300">Combo Packages</h3>
+                    <div class="text-sm">
+                        <div class="flex justify-between"><span>Custom Combo Services</span><span class="font-mono text-emerald-400">Sum of individual services</span></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="text-center text-white/50 text-sm mt-16">
+                Prices vary depending on complexity, customization, and delivery requirements. Custom quotes available on WhatsApp.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-[#0a0a0a]">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="px-5 py-2 bg-emerald-400 text-black font-semibold rounded-3xl text-sm">CONTACT US</span>
+                <h2 class="heading-font text-5xl tracking-[-1px] mt-4"><span class="brand-gradien">Ready to create magic?</span></h2>
+                <p class="text-white/70 mt-3 max-w-md mx-auto">Chat with us directly on WhatsApp. Choose your network below.</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto grid md:grid-cols-2 gap-8">
+                
+                <!-- MTN -->
+                <div class="bg-[#111] border border-white/10 rounded-3xl p-10 text-center">
+                    <div class="flex justify-center mb-6">
+                        <i class="fa-brands fa-whatsapp text-6xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-yellow-300">MTN Users</h3>
+                    <a href="https://wa.me/256778485966" 
+                       target="_blank"
+                       class="inline-flex items-center gap-x-3 bg-[#25D366] hover:bg-[#20c35c] text-black font-semibold px-10 py-5 rounded-3xl text-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        Chat on MTN WhatsApp
+                    </a>
+                </div>
+
+                <!-- Airtel -->
+                <div class="bg-[#111] border border-white/10 rounded-3xl p-10 text-center">
+                    <div class="flex justify-center mb-6">
+                        <i class="fa-brands fa-whatsapp text-6xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-red-600">Airtel Users</h3>
+                    <a href="https://wa.me/256758991506" 
+                       target="_blank"
+                       class="inline-flex items-center gap-x-3 bg-[#25D366] hover:bg-[#20c35c] text-black font-semibold px-10 py-5 rounded-3xl text-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        Chat on Airtel WhatsApp
+                    </a>
+                </div>
+
+            </div>
+
+            <p class="text-center text-white/50 text-sm mt-12">
+                Both numbers are active daily online • Expect fast replies
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-16">
+        <div class="max-w-screen-2xl mx-auto px-6 text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl glow">✨</div>
+                    <h1 class="heading-font text-3xl tracking-[-1px]"><span class="brand-gradient">FRECA</span><span class="text-violet-400"><span class="brand-gradien">Online Studio</span></span></h1>
+                </div>
+                <div class="text-white/60">© 2026 FRECA Online Studio • Made with ❤️ for Uganda </div>
+                <a href="#contact" 
+                   class="bg-[#25D366] text-black font-semibold px-8 py-4 rounded-3xl flex items-center gap-x-3 whatsapp-float">
+                    <i class="fa-brands fa-whatsapp"></i> Start a Chat
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MAIN JAVASCRIPT - Fixed: hero button is no longer overridden -->
+    <script>
+        const waNumber = "256758991506";
+
+        function createWhatsAppLink(message) {
+            return `https://wa.me/\( {waNumber}?text= \){encodeURIComponent(message)}`;
+        }
+
+        function updateAllLinks() {
+            // Hero button stays linked to #contact - do NOT override it
+            // Only update other service links if they exist
+
+            const songLink = document.getElementById('song-link');
+            if (songLink) songLink.href = createWhatsAppLink("Hi FRECA Online Studio, I want a custom song created.");
+            
+            const loveLink = document.getElementById('love-msg-link');
+            if (loveLink) loveLink.href = createWhatsAppLink("Hi FRECA Online Studio, I need a love or reconnection message.");
+            
+            const apologyLink = document.getElementById('apology-link');
+            if (apologyLink) apologyLink.href = createWhatsAppLink("Hi FRECA Online Studio, I need an apology message.");
+            
+            const birthdayLink = document.getElementById('birthday-link');
+            if (birthdayLink) birthdayLink.href = createWhatsAppLink("Hi FRECA Online Studio, I need a birthday message.");
+        }
+
+        window.onload = updateAllLinks;
+    </script>
+</body>
+</html>
